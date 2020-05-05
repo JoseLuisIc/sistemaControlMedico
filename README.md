@@ -9,3 +9,5 @@ Librerias:;
 
 mysql connector
 JCalendar
+
+Not: Tienen que configurar los conectores de bd en el codigo.
