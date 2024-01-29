@@ -1,0 +1,55 @@
+-- MySQL dump 10.13  Distrib 8.0.20, for Win64 (x86_64)
+--
+-- Host: localhost    Database: bdconsultorio
+-- ------------------------------------------------------
+-- Server version	5.5.62
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!50503 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `tabla_unidadmedica`
+--
+
+DROP TABLE IF EXISTS `tabla_unidadmedica`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `tabla_unidadmedica` (
+  `id_unidadmedica` int(11) NOT NULL,
+  `um_paciente` int(11) DEFAULT NULL,
+  `um_folio` varchar(45) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `um_medico` varchar(45) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `um_consultorio` varchar(45) COLLATE utf8_spanish_ci DEFAULT NULL,
+  PRIMARY KEY (`id_unidadmedica`),
+  UNIQUE KEY `id_unidadmedica_UNIQUE` (`id_unidadmedica`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tabla_unidadmedica`
+--
+
+LOCK TABLES `tabla_unidadmedica` WRITE;
+/*!40000 ALTER TABLE `tabla_unidadmedica` DISABLE KEYS */;
+INSERT INTO `tabla_unidadmedica` VALUES (20000,8440719,'16801','Jose Luis Caamal Ic','1'),(23829,76,'833','1 JOSE LUIS CAAMAL','1'),(44862,109,'718','1 JOSE LUIS CAAMAL','1'),(93753,18,'538','1 JOSE LUIS CAAMAL','1'),(473678,7593540,'8072250','Jose Luis Caamal Ic','2'),(1086281,4105644,'9985319','1 JOSE LUIS CAAMAL','1'),(1405283,3310004,'2726457','Juan Guillermo Gonzalez','1'),(2261083,5083483,'666169','1 JOSE LUIS CAAMAL','1'),(4438593,8115317,'406424','Juan Guillermo Gonzalez','2'),(5520301,3028676,'1793056','1 JOSE LUIS CAAMAL','1'),(6150383,5384141,'6309724','1 JOSE LUIS CAAMAL','2'),(6885915,5938705,'9504280','1 JOSE LUIS CAAMAL','1'),(7699406,6227716,'6768817','1 JOSE LUIS CAAMAL','1'),(7833867,8894839,'1812666','Juan Guillermo Gonzalez','1'),(7844161,6216454,'1463702','1 JOSE LUIS CAAMAL','1'),(8468046,9223142,'1261731','1 JOSE LUIS CAAMAL','1'),(8846609,5393533,'6969244','1 JOSE LUIS CAAMAL','1'),(9045160,5514226,'6269944','1 JOSE LUIS CAAMAL','1'),(9801593,6300334,'8911756','1 JOSE LUIS CAAMAL','1'),(9873464,2533408,'6255832','1 JOSE LUIS CAAMAL','1');
+/*!40000 ALTER TABLE `tabla_unidadmedica` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2024-01-29  2:58:17

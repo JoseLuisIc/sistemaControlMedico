@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package Controlador;
+import Vista.loginInMedico;
 import Vista.vistaPrincipal;
 import java.io.FileOutputStream;
 import java.util.Date;
@@ -38,8 +39,9 @@ import org.apache.logging.log4j.Logger;
  *
  * @author joseluis.caamal
  */
-public class contraldorReporteTabla { 
-   private static final Logger logger = LogManager.getLogger(contraldorReporteTabla.class);;
+public class controladorReporteTabla { 
+   private static final org.apache.logging.log4j.Logger logger = LogManager.getLogger(controladorReporteTabla.class);;
+   
    //Importo los logs
    //private  Font fuenteNegra10 = new Font(Font.getFamily(""), 10, Font.BOLD, Color.BLACK);
    controladorBD cc= new controladorBD();
@@ -47,7 +49,7 @@ public class contraldorReporteTabla {
       logger.info("SistemaLogger.log", "Usuario: Actividad: Se inicia CreadorReportes()"+TipoArchivo);
       /*Leo el log en caso de que quiera imprimirlo :D*/
       String cadena;
-      String archivo = "SistemaLogger.log";
+      String archivo = "SistemaControlMedico.log";
       FileReader f = new FileReader(archivo);
       BufferedReader b = new BufferedReader(f);
       System.out.println(b.toString());
@@ -68,7 +70,7 @@ public class contraldorReporteTabla {
                sql= "select * from tabla_unidadmedica";
           break;
           case 2:
-              dest = ".\\reportes\\ReportePacientes"+fechaFinal+".pdf"; 
+                dest = ".\\reportes\\ReportePacientes"+fechaFinal+".pdf"; 
               nombreReporte = "Reporte Pacientes";
                sql= "select * from tabla_pacientes";
           break;
@@ -254,24 +256,247 @@ public class contraldorReporteTabla {
             System.out.println(""+e);
             //JOptionPane.showMessageDialog(null,"Error en el acceso, vuelva a intentarlo" + e.getMessage());
         }
-      // Adding cells to the table       
-//      table.addCell(new Cell().add("Name"));       
-//      table.addCell(new Cell().add("Raju"));       
-//      table.addCell(new Cell().add("Id"));       
-//      table.addCell(new Cell().add("1001"));       
-//      table.addCell(new Cell().add("Designation"));       
-//      table.addCell(new Cell().add("Programmer"));   
-//       table.addCell("1.0");
-//       table.addCell("1.1");
-//       table.addCell("1.2");
-//       table.addCell("2.1");
-//       table.addCell("2.2");
-//       table.addCell("2.3");
-//       table.addCell("2.3");
-//       table.addCell("2.3");
-//       table.addCell("2.3");
-//       table.addCell("2.3");
+      // Adding Table to document        
+      document.add(table);
+      
+      if(TipoArchivo==6){
+      Anchor anchor = new Anchor("Logs");
+      anchor.setName("Incio");
+      Chapter catPart = new Chapter(new Paragraph(anchor), 1);
+      Section subCatPart = catPart.addSection(preface);
+      subCatPart.add(new Paragraph("_________________________________________________"));
+      //Section subCatPart = null;
+      
+          List list = new List(true, false, 10);
+          while((cadena = b.readLine())!=null) {
+            System.out.println(cadena);
+            list.add(cadena);
+          }
+          subCatPart.add(list);
+          document.add(subCatPart);
+      }
+      
+      //Close Log
+      b.close();
+      // Closing the document       
+      document.close();
+      logger.info("SistemaLogger.log", "Usuario: Actividad: Se Crea el Reporte con éxito"); 
+      System.out.println("Table created successfully..");
+      
+   }
+   /*Constructor que exporta el pdf para imprimir por Usuario*/
+   public void crearPreeInscripcionMedicaxUsuario(int TipoArchivo,int idReceta, int id_paciente, int rec_idcita) throws Exception {
+      logger.info("SistemaLogger.log", "Usuario: Actividad: Se inicia CreadorReportes()"+TipoArchivo);
+      /*Leo el log en caso de que quiera imprimirlo :D*/
+      String cadena;
+      String archivo = "SistemaControlMedico.log";
+      FileReader f = new FileReader(archivo);
+      BufferedReader b = new BufferedReader(f);
+      System.out.println(b.toString());
+      // Creating a PdfDocument object
+      java.util.Date fecha = new Date();
+//      System.out.println (fecha.getDay());
+//      System.out.println (fecha.getMonth());
+      fecha.getHours();
+      String fechaFinal = fecha.getDay()+"_"+fecha.getMonth()+"_"+fecha.getYear()+"_"+fecha.getSeconds();
+      String dest = "";
+      String nombreReporte = "";
+      String sql = "";
+      /*Defenimos el nombre del archivo y el destino:*/
+      switch(TipoArchivo){
+          case 1:
+              dest = ".\\reportes\\ReporteUnidadMedica"+fechaFinal+".pdf";
+              nombreReporte = "Reporte Unidad Medica";
+               sql= "select * from tabla_unidadmedica";
+          break;
+          case 2:
+                dest = ".\\reportes\\ReportePacientes"+fechaFinal+".pdf"; 
+              nombreReporte = "Reporte Pacientes";
+               sql= "select * from tabla_pacientes";
+          break;
+          case 3:
+              dest = ".\\reportes\\ReporteRecetas"+fechaFinal+".pdf"; 
+              nombreReporte = "Reporte Recetas";
+              sql = "SELECT * FROM bdconsultorio.tabla_recetas, bdconsultorio.tabla_pacientes, bdconsultorio.tabla_citas";
+              sql += " WHERE id_paciente = '"+id_paciente+"' and rec_idreceta = '"+idReceta+"' and rec_idcita = '"+rec_idcita+"'";
+          break;
+          case 4:
+              dest = ".\\reportes\\ReporteUsuarios"+fechaFinal+".pdf"; 
+              nombreReporte = "Reporte Usuarios";
+               sql= "select * from tabla_usuarios";
+          break;
+          case 5:
+              dest = ".\\reportes\\ReporteCitas"+fechaFinal+".pdf";
+              nombreReporte = "Reporte Citas";
+               sql= "select * from tabla_citas";
+          break;
+          case 6:
+              dest = ".\\reportes\\ReporteLogs"+fechaFinal+".pdf";
+              nombreReporte = "Reporte Logs";
+              //sql= "select * from tabla_citas";
+          break;
+          
+      }
+      logger.info("SistemaLogger.log", "Usuario: Actividad: Se nombra y obtiene consulta para el reporte"); 
+      Document document = new Document();
+//      PdfWriter writer = new PdfWriter(dest);       
          
+      // Creating a PdfDocument object      
+//      PdfDocument pdf = new PdfDocument(writer);                  
+      PdfWriter.getInstance(document, new FileOutputStream(dest));
+      document.open();
+      Paragraph preface = new Paragraph();
+// We add one empty line
+      addEmptyLine(preface, 1);
+// Lets write a big header
+      preface.add(new Paragraph(nombreReporte));
+      preface.add(new Paragraph("Reporte Generado Por: " + System.getProperty("user.name") + ", " + new Date()));
+      document.add(preface);
+        // We add one empty line
+      addEmptyLine(preface, 5);
+      // Creating a Document object       
+//      Document doc = new Document(pdf);                       
+         
+      // Creating a table 
+      //N+umero de columnas :p
+      float [] pointColumnWidths = tamColumnas(TipoArchivo);
+      PdfPTable table = new PdfPTable(pointColumnWidths);
+      table.setWidthPercentage(100);
+      table.setHorizontalAlignment(Element.ALIGN_CENTER);
+      PdfPCell cell = new PdfPCell(new Paragraph("Tabla:"+nombreReporte));
+      cell.setColspan(pointColumnWidths.length);
+      cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+        //Color de fondo de la celda
+      cell.setBackgroundColor (BaseColor.BLUE);        
+      table.addCell(cell);
+      
+      String rotulosColumnas[] = rotulosColumna(TipoArchivo);
+      
+      for(int i=0; i<rotulosColumnas.length; i++)
+      {
+                    cell = new PdfPCell(new Paragraph(rotulosColumnas[i]));
+                    cell.setVerticalAlignment(Element.ALIGN_CENTER);
+                    cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    cell.setBackgroundColor (BaseColor.WHITE);
+                    table.addCell(cell);
+      }
+      
+      try { 
+          
+          Statement st =cc.openConnection().createStatement();
+          ResultSet rs=st.executeQuery(sql);
+          
+           while(rs.next()){
+           System.out.println(TipoArchivo);
+           switch(TipoArchivo){
+               case 1:
+                   
+                    cell = new PdfPCell(new Paragraph(String.valueOf(rs.getInt("id_unidadmedica"))));
+                    table.addCell(cell);
+                    cell = new PdfPCell(new Paragraph(String.valueOf(rs.getInt("um_paciente"))));
+                    table.addCell(cell);
+                    cell = new PdfPCell(new Paragraph(rs.getString("um_folio")));
+                    table.addCell(cell);
+                    cell = new PdfPCell(new Paragraph(rs.getString("um_medico")));
+                    table.addCell(cell);
+                    cell = new PdfPCell(new Paragraph(rs.getString("um_consultorio")));
+                    table.addCell(cell);
+                    //String [] rotulosColumnaTipo1 = {"id_unidadmedica","um_paciente","um_folio","um_medico","um_consultorio"};
+                   
+               break;
+               case 2:
+                   
+                    cell = new PdfPCell(new Paragraph(String.valueOf(rs.getInt("id_paciente"))));
+                    table.addCell(cell);
+                    cell = new PdfPCell(new Paragraph(rs.getString("pac_nombres")));
+                    table.addCell(cell);
+                    cell = new PdfPCell(new Paragraph(rs.getString("pac_apellidopaterno")));
+                    table.addCell(cell);
+                    cell = new PdfPCell(new Paragraph(rs.getString("pac_apellidomaterno")));
+                    table.addCell(cell);
+                    cell = new PdfPCell(new Paragraph(rs.getString("pac_sexo")));
+                    table.addCell(cell);
+                    cell = new PdfPCell(new Paragraph(String.valueOf(rs.getInt("pac_edad"))));
+                    table.addCell(cell);
+                    cell = new PdfPCell(new Paragraph(rs.getString("pac_curp")));
+                    table.addCell(cell);
+                    cell = new PdfPCell(new Paragraph(rs.getString("pac_lugar")));
+                    table.addCell(cell);
+                    cell = new PdfPCell(new Paragraph(rs.getString("pac_direccion")));
+                    table.addCell(cell);
+                    cell = new PdfPCell(new Paragraph(rs.getString("pac_colonia")));
+                    table.addCell(cell);
+                    cell = new PdfPCell(new Paragraph(rs.getString("pac_direccion")));
+                    table.addCell(cell);
+                    cell = new PdfPCell(new Paragraph(rs.getDate("pac_fechanac").toString()));
+                    table.addCell(cell);
+                    cell = new PdfPCell(new Paragraph(String.valueOf(rs.getInt("pac_idunidadmedica"))));
+                    table.addCell(cell);
+                   
+               break;
+               case 3:
+                    cell = new PdfPCell(new Paragraph(String.valueOf(rs.getInt("rec_idreceta"))));
+                    table.addCell(cell);
+                    cell = new PdfPCell(new Paragraph(String.valueOf(rs.getInt("rec_idpaciente"))));
+                    table.addCell(cell);
+                    cell = new PdfPCell(new Paragraph(String.valueOf(rs.getInt("rec_idunidadmedica"))));
+                    table.addCell(cell);
+                    cell = new PdfPCell(new Paragraph(rs.getString("rec_descripcion")));
+                    table.addCell(cell);
+                    cell = new PdfPCell(new Paragraph(rs.getString("rec_alergias")));
+                    table.addCell(cell);
+                    cell = new PdfPCell(new Paragraph(rs.getString("rec_estatura")));
+                    table.addCell(cell);
+                    cell = new PdfPCell(new Paragraph(rs.getString("rec_peso")));
+                    table.addCell(cell);
+                    cell = new PdfPCell(new Paragraph(rs.getString("rec_presion")));
+                    table.addCell(cell);
+                    cell = new PdfPCell(new Paragraph(rs.getString("rec_tiposangre")));
+                    table.addCell(cell);
+                    cell = new PdfPCell(new Paragraph(String.valueOf(rs.getInt("rec_idcita"))));
+                    table.addCell(cell);
+              break;
+              case 4:
+                    cell = new PdfPCell(new Paragraph(rs.getString("id_usuario") ));
+                    table.addCell(cell);
+                    cell = new PdfPCell(new Paragraph(rs.getString("username")));
+                    table.addCell(cell);
+                    cell = new PdfPCell(new Paragraph(rs.getString("password")));
+                    table.addCell(cell);
+              break;
+              
+              case 5:
+                    cell = new PdfPCell(new Paragraph(String.valueOf(rs.getInt ("cm_idcita")) ));
+                    table.addCell(cell);
+                    cell = new PdfPCell(new Paragraph(String.valueOf(rs.getInt("cm_idpaciente"))));
+                    table.addCell(cell);
+                    cell = new PdfPCell(new Paragraph(rs.getDate("cm_idfecha").toString()));
+                    table.addCell(cell);
+                    cell = new PdfPCell(new Paragraph(rs.getString("cm_fechahora")));
+                    table.addCell(cell);
+                    cell = new PdfPCell(new Paragraph(rs.getString("cm_servicio")));
+                    table.addCell(cell);
+                    cell = new PdfPCell(new Paragraph(rs.getString("cm_analisispac")));
+                    table.addCell(cell);
+                    cell = new PdfPCell(new Paragraph(String.valueOf(rs.getInt("cm_idunidadmedica"))));
+                    table.addCell(cell);
+                     cell = new PdfPCell(new Paragraph(String.valueOf(rs.getInt("cm_idrecetas"))));
+                    table.addCell(cell);
+                   
+              break;
+           }
+//                    cell = new PdfPCell(new Paragraph(rs.getDate("fechaContratacion").toString ()) );
+//                    table.addCell(cell);
+                
+           }
+           
+//           con.close();
+//           rs.close();
+
+        } catch (SQLException e) {
+            System.out.println(""+e);
+            //JOptionPane.showMessageDialog(null,"Error en el acceso, vuelva a intentarlo" + e.getMessage());
+        }
       // Adding Table to document        
       document.add(table);
       

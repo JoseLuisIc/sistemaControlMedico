@@ -3,9 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Vista;
+package Vista.Citas;
 
 import Controlador.controladorBD;
+import Vista.Recetas.vistaRecetas;
+import Vista.Recetas.vistaRecetasMedicas;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -98,9 +100,7 @@ public class vistaCitas extends javax.swing.JFrame {
     void setFilas(String busquedaFiltroSF){
         try{
           
-             String Sql = "";
-            
-                 Sql = 
+             String Sql = 
                  //   "SELECT dni_pago,usuario,fecha_pago,total,saldoActual FROM tabla_pagos";
                 "SELECT cm_idcita,cm_idpaciente,cm_idunidadmedica,cm_idfecha,cm_fechahora,cm_servicio,cm_analisispac,cm_idrecetas FROM bdconsultorio.tabla_citas where cm_idpaciente = '"+busquedaFiltroSF+"'";// or id_paciente = '"+busquedaFiltroSF+"'";    
              System.out.println("Contenido: "+Sql);
@@ -162,7 +162,7 @@ public class vistaCitas extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         vici_gectidcita = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        mssgetext = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Instituto Médico");
@@ -372,7 +372,7 @@ public class vistaCitas extends javax.swing.JFrame {
         jLabel8.setForeground(new java.awt.Color(204, 0, 0));
         jLabel8.setText("Error:");
 
-        jLabel9.setText("____________________________________________________________________________________________________________________________________________________________");
+        mssgetext.setText("____________________________________________________________________________________________________________________________________________________________");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -411,7 +411,7 @@ public class vistaCitas extends javax.swing.JFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel8)
                                 .addGap(31, 31, 31)
-                                .addComponent(jLabel9)
+                                .addComponent(mssgetext)
                                 .addGap(122, 122, 122))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING))
                         .addGap(0, 248, Short.MAX_VALUE))))
@@ -441,7 +441,7 @@ public class vistaCitas extends javax.swing.JFrame {
                 .addGap(39, 39, 39)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(jLabel9))
+                    .addComponent(mssgetext))
                 .addContainerGap(139, Short.MAX_VALUE))
         );
 
@@ -495,16 +495,30 @@ public class vistaCitas extends javax.swing.JFrame {
         vcita_nombreMedico = nombreMedico;
         */
         //cime_idcita = vici_gectidcita.getText();
+        if(!vici_gectidcita.getText().equals("") || !cime_idpaciente.getText().equals("")){
+        
         vistaRecetasMedicas vrcm = new vistaRecetasMedicas(vcita_pacpaciente,vcita_nombrePaciente,vcita_nombreIDUnidadMedica,cime_idcita, cime_idreceta);
         vrcm.show();
+        
+        }
+        else{
+            mssgetext.setText("No existe información suficiente para crear una receta.");
+        }
+        
+        
         logger.info("SistemaLogger.log", "Usuario: Actividad: Se inicia vistaRecetasMedicas()");
         
     }//GEN-LAST:event_jButton3ActionPerformed
     
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
+         if(!vici_gectidcita.getText().equals("") || !cime_idpaciente.getText().equals("")){
         vistaRecetas vc = new vistaRecetas(vcita_nombrePaciente,vcita_pacpaciente,vcita_nombreMedico,vcita_nombreFolio,cime_idcita,cime_idreceta);
         vc.show();
+        }
+         else{
+             mssgetext.setText("No existe información suficiente para ver la receta.");
+         }
         logger.info("SistemaLogger.log", "Usuario: Actividad: Se inicia vistaRecetas()");
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -560,7 +574,6 @@ public class vistaCitas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -569,6 +582,7 @@ public class vistaCitas extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JLabel mssgetext;
     private javax.swing.JTextField vici_gectidcita;
     // End of variables declaration//GEN-END:variables
 }

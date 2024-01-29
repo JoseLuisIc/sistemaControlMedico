@@ -5,6 +5,7 @@
  */
 package Vista;
 
+import Vista.Citas.vistaCitas;
 import Controlador.controladorBD;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

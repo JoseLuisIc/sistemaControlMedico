@@ -20,7 +20,7 @@ public class vistaReportes extends javax.swing.JFrame {
      * Creates new form vistaReportes
      */
     /*Obtenemos el controlador de reportes en PDF*/
-    contraldorReporteTabla ct = new contraldorReporteTabla();
+    controladorReporteTabla ct = new controladorReporteTabla();
     private static final org.apache.logging.log4j.Logger logger = LogManager.getLogger(vistaReportes.class);;
    
     public vistaReportes() {

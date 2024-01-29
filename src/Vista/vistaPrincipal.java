@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 package Vista;
+import Vista.Pacientes.vistaRegistroPaciente;
+import Vista.Pacientes.vistaPacientes;
+import Vista.Citas.vistaCitas;
 import Vista.UnidadMedica.vistaUnidadMedicaCatalogo;
 import Vista.UnidadMedica.vistaUnidadMedicaPrincipal;
 import Vista.Usuarios.vistaUsuarioPrincipal;
@@ -428,6 +431,9 @@ public class vistaPrincipal extends javax.swing.JFrame {
 
     private void btnCitasMedicasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCitasMedicasActionPerformed
         // TODO add your handling code here:
+        vistaCitas vc = new vistaCitas("","","","","","");
+        vc.show();
+        
     }//GEN-LAST:event_btnCitasMedicasActionPerformed
 
     private void btnFarmaciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFarmaciaActionPerformed

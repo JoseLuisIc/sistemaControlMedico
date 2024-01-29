@@ -7,7 +7,7 @@ package Vista.UnidadMedica;
 
 import Controlador.controladorBD;
 import Modelo.modeloDatos;
-import Vista.vistaRegistroPaciente;
+import Vista.Pacientes.vistaRegistroPaciente;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -308,7 +308,7 @@ public class vistaUnidadMedica extends javax.swing.JDialog {
             if(validaBD == 1){
                 
                 System.out.println("Proceso de guardado de Usuario de Unidad Médica fue correcto");
-                validaBD = cb.insertDataUsuarioPAC("tabla_pacientes", random1, "", "", "", 0, "", "", "", "", "", "", fechaFormateada, random11);
+                validaBD = cb.updateDataUsuarioPAC("tabla_pacientes", random1, "", "", "", 0, "", "", "", "", "", "","", fechaFormateada, random11);
                 if(validaBD == 1){
                     System.out.println("Proceso de guardado de Usuario de Unidad Médica fue correcto");
                 }

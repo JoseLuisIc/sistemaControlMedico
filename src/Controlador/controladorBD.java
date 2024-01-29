@@ -51,12 +51,13 @@ public class controladorBD {
             String db_nam = propiedades.getProperty("nombreBD");
             String use = propiedades.getProperty("user");
             String pas = propiedades.getProperty("password");
+            String urlDB = propiedades.getProperty("urldb");
             //For MySql 5.5
             Class.forName("com.mysql.jdbc.Driver");
             //Conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + db_nam + "?characterEncoding=latin1&useConfigs=maxPerformance", use, pas);
             //For MySql 8.0
             //Class.forName("com.mysql.cj.jdbc.Driver");
-            Conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + db_nam + "?characterEncoding=latin1&zeroDateTimeBehavior=convertToNull&serverTimezone=UTC", use, pas);
+            Conexion = DriverManager.getConnection(urlDB + db_nam + "?characterEncoding=latin1&zeroDateTimeBehavior=convertToNull&serverTimezone=UTC", use, pas);
             System.out.println("Se ha iniciado la conexión con el servidor de forma exitosa");
         } catch (ClassNotFoundException | SQLException ex) {
            Logger.getLogger(controladorBD.class.getName()).log(Level.SEVERE, null, ex);
@@ -148,6 +149,7 @@ public class controladorBD {
                     + "\"" + um_consultorio + "\")";
             Statement st = Conexion.createStatement();
             st.executeUpdate(Query);
+            System.out.println(Query);
             //JOptionPane.showMessageDialog(null, "Datos almacenados de forma exitosa");
             return 1;
         } catch (SQLException ex) {
@@ -222,7 +224,7 @@ public class controladorBD {
     ----------------------------------------------------------------------------------
 */
     public int insertDataUsuarioPAC(String table_name,int um_paciente, String pac_nombres, String pac_apellidopaterno, String pac_apellidomaterno, 
-            int pac_edad, String pac_sexo,String pac_curp,String pac_lugar, String pac_direccion, String pac_numcasa, String pac_colonia, String pac_fechanac,  int id_unidadmedica ) {
+            int pac_edad, String pac_sexo,String pac_curp,String pac_lugar, String pac_direccion, String pac_numcasa,String pac_codigopostal, String pac_colonia, String pac_fechanac,  int id_unidadmedica ) {
         logger.info("SistemaLogger.log", "Usuario: Actividad: Se inicia insertDataUsuarioPAC()");
         try {
             String Query = "INSERT INTO " + table_name + " VALUES("
@@ -236,10 +238,13 @@ public class controladorBD {
                     + "\"" + pac_lugar + "\", "
                     + "\"" + pac_direccion + "\", "
                     + "\"" + pac_numcasa + "\", "
+                    + "\""+pac_codigopostal +"\", "
+                    
                     + "\"" + pac_colonia + "\", "
                     + "\"" + pac_fechanac + "\", "
                     + "\"" + id_unidadmedica + "\")";
             Statement st = Conexion.createStatement();
+            System.out.println(Query);
             st.executeUpdate(Query);
             //st.execute
             //JOptionPane.showMessageDialog(null, "Datos almacenados de forma exitosa");
@@ -323,7 +328,7 @@ public class controladorBD {
     ----------------------------------------------------------------------------------
 */
     public int updateDataUsuarioPAC(String table_name,int um_paciente, String pac_nombres, String pac_apellidopaterno, String pac_apellidomaterno, 
-            int pac_edad, String pac_sexo,String pac_curp,String pac_lugar, String pac_direccion, String pac_numcasa, String pac_colonia, String pac_fechanac,  int id_unidadmedica ) {
+            int pac_edad, String pac_sexo,String pac_curp,String pac_lugar, String pac_direccion, String pac_numcasa,String pac_codigopostal, String pac_colonia, String pac_fechanac,  int id_unidadmedica ) {
         logger.info("SistemaLogger.log", "Usuario: Actividad: Se inicia updateDataUsuarioPAC()");
         try {
             //int response;
@@ -337,6 +342,7 @@ public class controladorBD {
                     + "pac_lugar = '" + pac_lugar + "', "
                     + "pac_direccion = '" + pac_direccion + "', "
                     + "pac_numcasa = '" + pac_numcasa + "', "
+                    + "pac_codigopostal = '" + pac_codigopostal + "', "
                     + "pac_colonia = '" + pac_colonia + "', "
                     + "pac_fechanac = '" + pac_fechanac + "' " 
                 + "WHERE id_paciente = '"+um_paciente+"' and pac_idunidadmedica = '"+id_unidadmedica+"'");

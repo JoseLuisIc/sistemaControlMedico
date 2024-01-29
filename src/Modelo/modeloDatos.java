@@ -26,6 +26,7 @@ public class modeloDatos {
     private String pac_coloniabd;
     private String pac_fechanacbd;
     private int pac_idunidadmedicabd;
+    private int pac_codigoPostal;
     /*Unidad Medica*/
     private int id_unidadmedica;
     private int um_paciente; 
@@ -186,5 +187,14 @@ public class modeloDatos {
         this.um_consultorio = um_consultorio;
     }
 
+    public int getPac_codigoPostal() {
+        return pac_codigoPostal;
+    }
+
+    public void setPac_codigoPostal(int pac_codigoPostal) {
+        this.pac_codigoPostal = pac_codigoPostal;
+    }
+
+    
     
 }
