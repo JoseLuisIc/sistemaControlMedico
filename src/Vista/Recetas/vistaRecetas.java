@@ -47,7 +47,7 @@ public class vistaRecetas extends javax.swing.JFrame {
         String newSql = "";
         if(!"".equals(idPaciente) || !"".equals(id_receta) || !"".equals(rec_idcita)){
            newSql = "SELECT * FROM tabla_recetas trc LEFT JOIN tabla_pacientes tpa ON tpa.id_paciente = trc.rec_idpaciente\n" +
-"LEFT JOIN tabla_citas tpc ON tpc.cm_idcita = '4699725' LEFT JOIN tabla_unidadmedica tum ON tum.id_unidadmedica = trc.rec_idunidadmedica ";
+"LEFT JOIN tabla_citas tpc ON tpc.cm_idcita = '"+rec_idcita+"' LEFT JOIN tabla_unidadmedica tum ON tum.id_unidadmedica = trc.rec_idunidadmedica ";
             newSql += " WHERE id_paciente = '"+idPaciente+"' and rec_idreceta = '"+id_receta+"' and rec_idcita = '"+rec_idcita+"'";
         }
         else{

@@ -3,7 +3,23 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/josel/OneDrive/Documentos/ProyectosGit/ControlMedico/src/Vista/Usuarios/addUsuarios.java</file>
+            <file>file:/D:/Proyectos2023/sistemaControlMedico/src/Vista/Pacientes/vistaRegistroPaciente.java</file>
+            <file>file:/D:/Proyectos2023/sistemaControlMedico/src/Vista/UnidadMedica/vistaUnidadMedicaCatalogo.java</file>
+            <file>file:/D:/Proyectos2023/sistemaControlMedico/src/Vista/UnidadMedica/vistaUnidadMedicaRegistroMedico.java</file>
+            <file>file:/D:/Proyectos2023/sistemaControlMedico/src/Vista/Usuarios/vistaUsuarioPrincipal.java</file>
+            <file>file:/D:/Proyectos2023/sistemaControlMedico/src/Vista/UnidadMedica/vistaUnidadMedicaPrincipal.java</file>
+            <file>file:/D:/Proyectos2023/sistemaControlMedico/src/Vista/Recetas/vistaRecetasMedicas.java</file>
+            <file>file:/D:/Proyectos2023/sistemaControlMedico/src/Controlador/ControladorReportePreesincripcion.java</file>
+            <file>file:/D:/Proyectos2023/sistemaControlMedico/src/Vista/Usuarios/vistaUsuarioCajon.java</file>
+            <file>file:/D:/Proyectos2023/sistemaControlMedico/src/Vista/Recetas/vistaRecetas.java</file>
+            <file>file:/D:/Proyectos2023/sistemaControlMedico/src/Vista/UnidadMedica/vistaUnidadMedicaEditarUM.java</file>
+            <file>file:/D:/Proyectos2023/sistemaControlMedico/src/Vista/UnidadMedica/vistaUnidadMedicaCatalogoPrincipal.java</file>
+            <file>file:/D:/Proyectos2023/sistemaControlMedico/src/Vista/vistaControlDatos.java</file>
+            <file>file:/D:/Proyectos2023/sistemaControlMedico/src/Vista/vistaEspecialidadesMedicas.java</file>
+            <file>file:/D:/Proyectos2023/sistemaControlMedico/src/Vista/UnidadMedica/vistaUnidadMedica.java</file>
+            <file>file:/D:/Proyectos2023/sistemaControlMedico/src/Vista/Pacientes/vistaPacientes.java</file>
+            <file>file:/D:/Proyectos2023/sistemaControlMedico/src/Controlador/propiedades.properties</file>
+            <file>file:/D:/Proyectos2023/sistemaControlMedico/src/Controlador/controladorBD.java</file>
         </group>
     </open-files>
 </project-private>
