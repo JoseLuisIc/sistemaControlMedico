@@ -84,7 +84,7 @@ public class vistaCitas extends javax.swing.JFrame {
     }
     
     public String returnDatosUCitas(String idPaciente){
-        String newSql = "SELECT * FROM bdconsultorio.tabla_pacientes, bdconsultorio.tabla_unidadmedica";
+        String newSql = "SELECT * FROM tabla_pacientes, tabla_unidadmedica";
         newSql += " WHERE id_paciente = '"+idPaciente+"' and um_paciente = '"+idPaciente+"'";
         return newSql;
     }
@@ -99,17 +99,18 @@ public class vistaCitas extends javax.swing.JFrame {
     }
     void setFilas(String busquedaFiltroSF){
         try{
-          
-             String Sql = 
-                 //   "SELECT dni_pago,usuario,fecha_pago,total,saldoActual FROM tabla_pagos";
-                "SELECT cm_idcita,cm_idpaciente,cm_idunidadmedica,cm_idfecha,cm_fechahora,cm_servicio,cm_analisispac,cm_idrecetas FROM bdconsultorio.tabla_citas where cm_idpaciente = '"+busquedaFiltroSF+"'";// or id_paciente = '"+busquedaFiltroSF+"'";    
-             System.out.println("Contenido: "+Sql);
-             logger.info("SistemaLogger.log", "Usuario: Actividad: Se obtiene "+Sql);
+            String Sql = "";
             
-//            SELECT dni_datos, nombres, apellidos,fecha_nac, telefonocel, tabla_grupo.id_grupo, 
-//            tabla_grupo.nombre_encargado  FROM tabla_datosusuarios LEFT JOIN tabla_grupo ON tabla_datosusuarios.grupo = tabla_grupo.id_grupo where tabla_datosusuarios.grupo = '3'
-//           
-//    
+            if(busquedaFiltroSF.equals("")){
+                Sql = "SELECT cm_idcita,cm_idpaciente,cm_idunidadmedica,cm_idfecha,cm_fechahora,cm_servicio,cm_analisispac,cm_idrecetas FROM tabla_citas";    
+            
+            }
+            else{
+                Sql =    "SELECT cm_idcita,cm_idpaciente,cm_idunidadmedica,cm_idfecha,cm_fechahora,cm_servicio,cm_analisispac,cm_idrecetas FROM tabla_citas where cm_idpaciente = '"+busquedaFiltroSF+"'";// or id_paciente = '"+busquedaFiltroSF+"'";    
+            }
+            System.out.println("Contenido: "+Sql);
+             logger.info("SistemaLogger.log", "Usuario: Actividad: Se obtiene "+Sql);
+ 
             PreparedStatement us = cb.openConnection().prepareStatement(Sql);
             ResultSet res = us.executeQuery();
             Object objDatos[] = new Object[columna.length]; //Siempre debe cconexoincidir con el numero de columnas!
@@ -460,12 +461,7 @@ public class vistaCitas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonNuevaCitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevaCitaActionPerformed
-        // TODO add your handling code here:
-//            String vcita_pacpaciente ="";
-//        String vcita_nombreIDUnidadMedica = "";
-//        String vcita_nombreFolio = "";
-//        String vcita_nombreConsultorio = "";
-//        String vcita_nombreMedico = "";
+
         vistaNuevaCita vnc = new vistaNuevaCita(this, true, vcita_pacpaciente, vcita_nombrePaciente ,vcita_nombreIDUnidadMedica, vcita_nombreFolio, vcita_nombreConsultorio, vcita_nombreMedico);
         vnc.show();
         logger.info("SistemaLogger.log", "Usuario: Actividad: Se ejecuta botonNuevaCitaActionPerformed()");
@@ -485,16 +481,7 @@ public class vistaCitas extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-        /*
-        vcita_nombrePaciente = nombreCompleto;
-        vcita_pacpaciente = pac_paciente;
-        vcita_nombreIDUnidadMedica = nombreIDUnidadMedica;
-        vcita_nombreFolio = nombreFolio;
-        vcita_nombreConsultorio = nombreConsultorio;
-        vcita_nombreMedico = nombreMedico;
-        */
-        //cime_idcita = vici_gectidcita.getText();
+        
         if(!vici_gectidcita.getText().equals("") || !cime_idpaciente.getText().equals("")){
         
         vistaRecetasMedicas vrcm = new vistaRecetasMedicas(vcita_pacpaciente,vcita_nombrePaciente,vcita_nombreIDUnidadMedica,cime_idcita, cime_idreceta);
