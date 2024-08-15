@@ -68,6 +68,9 @@ public class vistaConfig extends javax.swing.JDialog {
         btnSave = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setLocation(new java.awt.Point(200, 200));
+        setUndecorated(true);
+        setResizable(false);
 
         jLabel1.setText("Configuración Base de Datos");
 
