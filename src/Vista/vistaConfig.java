@@ -4,9 +4,7 @@
  * and open the template in the editor.
  */
 package Vista;
-
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -17,18 +15,19 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author josel
+ * @author jcaamalic@gmail.com
+ * @Date 15/08/2024
  */
-public class vistaConfiguracion extends javax.swing.JFrame {
+public class vistaConfig extends javax.swing.JDialog {
 
     /**
-     * Creates new form vistaConfiguracion
+     * Creates new form vistaConfig
      */
-    public vistaConfiguracion() {
+    public vistaConfig(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
         initComponents();
         Properties p = new Properties();
         try {
-            /*FileOutputStream fOutputStream = new FileOutputStream("archivo.properties");*/
             p.load(new FileReader("src/Controlador/propiedades.properties"));
             p.setProperty("autor", "autor");
             p.getProperty("nombreBD");
@@ -39,8 +38,6 @@ public class vistaConfiguracion extends javax.swing.JFrame {
             usuario.setText(p.getProperty("user"));
             password.setText(p.getProperty("password"));
             urljdbc.setText(p.getProperty("urldb"));
-            
-            //p.store(fOutputStream, string);
         } catch (FileNotFoundException ex) {
             Logger.getLogger(vistaConfiguracion.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -70,7 +67,7 @@ public class vistaConfiguracion extends javax.swing.JFrame {
         urljdbc = new javax.swing.JTextField();
         btnSave = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Configuración Base de Datos");
 
@@ -100,7 +97,7 @@ public class vistaConfiguracion extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
                         .addComponent(nombreBD, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel5)
@@ -163,9 +160,7 @@ public class vistaConfiguracion extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -194,11 +189,10 @@ public class vistaConfiguracion extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Ocurrio un error, No Se guardo la configuración exitosamente.");
             Logger.getLogger(vistaConfiguracion.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
+        dispose();
     }//GEN-LAST:event_btnSaveActionPerformed
 
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSave;
     private javax.swing.JLabel jLabel1;

@@ -450,7 +450,7 @@ public class vistaPrincipal extends javax.swing.JFrame {
 
     private void btnConfiguracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfiguracionActionPerformed
         // TODO add your handling code here:
-        vistaConfiguracion vc = new vistaConfiguracion();
+        vistaConfig vc = new vistaConfig(this, rootPaneCheckingEnabled);
         vc.show();
     }//GEN-LAST:event_btnConfiguracionActionPerformed
 
