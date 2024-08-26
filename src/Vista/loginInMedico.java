@@ -86,7 +86,7 @@ public class loginInMedico extends javax.swing.JFrame {
         jPasswordField1 = new javax.swing.JPasswordField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnInicioSesion = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         textoError = new javax.swing.JLabel();
 
@@ -141,14 +141,14 @@ public class loginInMedico extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("Contraseña");
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 255));
-        jButton1.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(0, 0, 204));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/correccion.png"))); // NOI18N
-        jButton1.setText("Aceptar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnInicioSesion.setBackground(new java.awt.Color(255, 255, 255));
+        btnInicioSesion.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
+        btnInicioSesion.setForeground(new java.awt.Color(0, 0, 204));
+        btnInicioSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/correccion.png"))); // NOI18N
+        btnInicioSesion.setText("Aceptar");
+        btnInicioSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnInicioSesionActionPerformed(evt);
             }
         });
 
@@ -176,12 +176,12 @@ public class loginInMedico extends javax.swing.JFrame {
                         .addGap(445, 445, 445))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jPasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)
+                            .addComponent(jPasswordField1)
                             .addComponent(jTextNombre)
                             .addComponent(textoError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(336, 336, 336))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnInicioSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(373, 373, 373))))
         );
         layout.setVerticalGroup(
@@ -201,7 +201,7 @@ public class loginInMedico extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(textoError)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(btnInicioSesion)
                 .addGap(27, 27, 27)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(50, 50, 50))
@@ -210,13 +210,13 @@ public class loginInMedico extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnInicioSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioSesionActionPerformed
         // TODO add your handling code here:
 
         logger.info("Usuario: Actividad: Se inicia ValidarAcceso()");
         ValidarAcceso();
         
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnInicioSesionActionPerformed
 
     private void jPasswordField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordField1KeyPressed
         // TODO add your handling code here:
@@ -271,7 +271,7 @@ public class loginInMedico extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnInicioSesion;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     public static javax.swing.JLabel jLabel3;

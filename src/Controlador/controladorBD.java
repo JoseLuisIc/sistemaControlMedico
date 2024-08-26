@@ -850,4 +850,38 @@ public Object[] selectLlenaTabla(){
         }
         return listaMedicos;
     }
+    
+    public DefaultTableModel modelTablaCitas(){
+        
+        try{
+            String columna [] = new String[] {"ID_CITA","ID_PACIENTE","IDUMEDICA","FECHA_CITA","HORA_CITA","SERVICIO","ANALISIS","IDRECETAS"};
+            DefaultTableModel modeloTablaCitas = new DefaultTableModel(null, columna);
+            String Sql = "";
+            
+                Sql = "SELECT cm_idcita,cm_idpaciente,cm_idunidadmedica,cm_idfecha,cm_fechahora,cm_servicio,cm_analisispac,cm_idrecetas FROM tabla_citas";     
+            
+            System.out.println("Contenido: "+Sql);
+            logger.info("SistemaLogger.log", "Usuario: Actividad: Se obtiene "+Sql);
+ 
+            PreparedStatement us = openConnection().prepareStatement(Sql);
+            ResultSet res = us.executeQuery();
+            Object objDatos[] = new Object[columna.length]; //Siempre debe cconexoincidir con el numero de columnas!
+            while(res.next()){
+
+                for (int i = 0; i<columna.length; i++){
+                    objDatos[i] = res.getObject(i+1);
+                    
+                }
+                modeloTablaCitas.addRow(objDatos);
+            }
+            System.out.println(objDatos.toString());
+            
+            return modeloTablaCitas;
+        }
+        catch(SQLException ex){
+            logger.info("SistemaLogger.log", "Usuario: Actividad: Ocurrio un Error "+ex.toString());
+            return null;
+        }
+        
+    }
 }

@@ -431,7 +431,7 @@ public class vistaPrincipal extends javax.swing.JFrame {
 
     private void btnCitasMedicasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCitasMedicasActionPerformed
         // TODO add your handling code here:
-        vistaCitas vc = new vistaCitas("","","","","","");
+        vistaCitas vc = new vistaCitas();
         vc.show();
         
     }//GEN-LAST:event_btnCitasMedicasActionPerformed

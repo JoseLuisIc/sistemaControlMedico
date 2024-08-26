@@ -8,9 +8,11 @@ package Vista.Citas;
 import Controlador.controladorBD;
 import Vista.Recetas.vistaRecetas;
 import Vista.Recetas.vistaRecetasMedicas;
+import static Vista.vistaControlDatos.dape_nombre;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.apache.logging.log4j.LogManager;
 
@@ -30,15 +32,51 @@ public class vistaCitas extends javax.swing.JFrame {
     DefaultTableModel modeloTablaCitas;
     controladorBD cb = new controladorBD();
     public String columna[];
-    public String vcita_pacpaciente ="";
+    public String vcita_pacpaciente = "";
     public  String vcita_nombreIDUnidadMedica = "";
     public String vcita_nombreFolio = "";
     public String vcita_nombreConsultorio = "";
     public String vcita_nombreMedico = "";
     public String vcita_nombrePaciente = "";
-    
     public String cime_idreceta = "";
     public String cime_idcita = "";
+    
+    
+    public vistaCitas() {
+        modeloTablaCitas = new DefaultTableModel(null, getColumnas());
+        initComponents();
+        modeloTablaCitas = cb.modelTablaCitas();
+        jTable1.setModel(modeloTablaCitas);
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                int row = jTable1.rowAtPoint(evt.getPoint());
+                
+                int col = 7;
+                if (row >= 0 && col >= 0) {
+                    String valor = jTable1.getModel().getValueAt(row, col).toString(); //Tomo el valor de el modelo de la tabla
+                   // if(!"".equals(valor))
+                    cime_idreceta= valor;
+                    vici_gectidcita.setText(valor);
+                    cime_recetas.setText(valor); //Obtengo el valor del textfield
+                        
+                }
+                col = 0;
+                if (row >= 0 && col >= 0) {
+                   String valor = jTable1.getModel().getValueAt(row, col).toString(); //Tomo el valor de el modelo de la tabla                    
+                   //vici_gectidcita.setText(valor); //Obtengo el valor del textfield
+                   cime_idcita = valor;
+                }
+//                col = 2;
+//                if (row >= 0 && col >= 0) {
+//                    String valor = jTable1.getModel().getValueAt(row, col).toString(); //Tomo el valor de el modelo de la tabla
+//                    jTextField4.setText(valor); //Obtengo el valor del textfield
+//                }
+            }
+        });
+    }
+    
+    
     //
     public vistaCitas(String pac_paciente, String nombreCompleto,String nombreIDUnidadMedica,String nombreFolio,String nombreConsultorio,String nombreMedico) {
         vcita_nombrePaciente = nombreCompleto;
@@ -90,7 +128,6 @@ public class vistaCitas extends javax.swing.JFrame {
     }
     String[] getColumnas(){ //Columnas
         columna = new String[] {"ID_CITA","ID_PACIENTE","IDUMEDICA","FECHA_CITA","HORA_CITA","SERVICIO","ANALISIS","IDRECETAS"};
-        //{"DNI","USUARIOS","NOMBRES","APELLIDOS","GRUPO","MONTOSOLICITADO","SOL","CALIFICACION","FECHASOLICITUD","STATUS"};
         return columna;
     }
     public void limpiarDatos(){
@@ -102,26 +139,40 @@ public class vistaCitas extends javax.swing.JFrame {
             String Sql = "";
             
             if(busquedaFiltroSF.equals("")){
-                Sql = "SELECT cm_idcita,cm_idpaciente,cm_idunidadmedica,cm_idfecha,cm_fechahora,cm_servicio,cm_analisispac,cm_idrecetas FROM tabla_citas";    
-            
+                Sql = "SELECT cm_idcita,cm_idpaciente,cm_idunidadmedica,cm_idfecha,cm_fechahora,cm_servicio,cm_analisispac,cm_idrecetas FROM tabla_citas";     
             }
             else{
                 Sql =    "SELECT cm_idcita,cm_idpaciente,cm_idunidadmedica,cm_idfecha,cm_fechahora,cm_servicio,cm_analisispac,cm_idrecetas FROM tabla_citas where cm_idpaciente = '"+busquedaFiltroSF+"'";// or id_paciente = '"+busquedaFiltroSF+"'";    
             }
             System.out.println("Contenido: "+Sql);
-             logger.info("SistemaLogger.log", "Usuario: Actividad: Se obtiene "+Sql);
+            logger.info("SistemaLogger.log", "Usuario: Actividad: Se obtiene "+Sql);
  
             PreparedStatement us = cb.openConnection().prepareStatement(Sql);
             ResultSet res = us.executeQuery();
             Object objDatos[] = new Object[columna.length]; //Siempre debe cconexoincidir con el numero de columnas!
-            
             while(res.next()){
+                
+                /*Recupero la informaciónpara la vista. */
+                vcita_nombrePaciente = res.getString("pac_nombres") +" "+ res.getString("pac_apellidopaterno") +" "+ res.getString("pac_apellidomaterno");
+                vcita_pacpaciente = res.getString("id_paciente");
+                  
+                  //Datos de tabla Unidad Medica
+                  vcita_nombreIDUnidadMedica = res.getString("pac_idunidadmedica");
+            
+                  vcita_nombreFolio = res.getString("um_folio");
+                  
+                  vcita_nombreMedico = res.getString("um_medico");
+                  vcita_nombreConsultorio  = res.getString("um_consultorio");
+                /*Termina de recuperar la información para la vista*/
+                
                 for (int i = 0; i<columna.length; i++){
                     objDatos[i] = res.getObject(i+1);
-                    //System.out.println(objDatos[i]);
+                    
                 }
                 modeloTablaCitas.addRow(objDatos);
             }
+            //jTable1.setModel(modeloTablaCitas);
+            System.out.println(objDatos.toString());
             logger.info("SistemaLogger.log", "Usuario: Actividad: Se obtiene "+objDatos.toString());
         }
         catch(SQLException ex){
@@ -415,7 +466,7 @@ public class vistaCitas extends javax.swing.JFrame {
                                 .addComponent(mssgetext)
                                 .addGap(122, 122, 122))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addGap(0, 248, Short.MAX_VALUE))))
+                        .addGap(0, 21, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -450,7 +501,7 @@ public class vistaCitas extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1557, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1330, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -461,9 +512,16 @@ public class vistaCitas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonNuevaCitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevaCitaActionPerformed
-
-        vistaNuevaCita vnc = new vistaNuevaCita(this, true, vcita_pacpaciente, vcita_nombrePaciente ,vcita_nombreIDUnidadMedica, vcita_nombreFolio, vcita_nombreConsultorio, vcita_nombreMedico);
-        vnc.show();
+        System.out.println(vcita_pacpaciente);
+        if(vcita_pacpaciente.isEmpty() || vcita_pacpaciente.equals("")){
+            System.out.println("Por el momento es imposible crear una cita desde esta  vista.");
+            vistaInformacionDialog vInfo = new vistaInformacionDialog(this, rootPaneCheckingEnabled, "Por el momento es imposible crear una cita desde esta  vista.");
+            vInfo.show();
+        }
+        else{
+            vistaNuevaCita vnc = new vistaNuevaCita(this, true, vcita_pacpaciente, vcita_nombrePaciente ,vcita_nombreIDUnidadMedica, vcita_nombreFolio, vcita_nombreConsultorio, vcita_nombreMedico);
+            vnc.show();
+        }
         logger.info("SistemaLogger.log", "Usuario: Actividad: Se ejecuta botonNuevaCitaActionPerformed()");
     }//GEN-LAST:event_botonNuevaCitaActionPerformed
 
@@ -471,7 +529,13 @@ public class vistaCitas extends javax.swing.JFrame {
         // TODO add your handling code here:
         //modeloTablaCitas = new DefaultTableModel(null, getColumnas());
         limpiarDatos();
-        setFilas(vcita_pacpaciente);
+        if(vcita_pacpaciente.isEmpty() && vcita_pacpaciente.equals("")){
+            modeloTablaCitas = cb.modelTablaCitas();
+            jTable1.setModel(modeloTablaCitas);
+        }
+        else{
+            setFilas(vcita_pacpaciente);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -489,7 +553,9 @@ public class vistaCitas extends javax.swing.JFrame {
         
         }
         else{
-            mssgetext.setText("No existe información suficiente para crear una receta.");
+            mssgetext.setText("No existe información suficiente para crear una cita.");
+            vistaInformacionDialog vInfo = new vistaInformacionDialog(this, rootPaneCheckingEnabled, "No existe información suficiente para crear una cita.");
+            vInfo.show();
         }
         
         
